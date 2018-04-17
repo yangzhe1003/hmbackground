@@ -5,59 +5,20 @@
 import { message } from 'antd';
 
 const ERROR_MSG = '请求失败';
-const fetchGet = (requestApi, fetchPrm, successFun, errorFun) => {
 
-    let thisUrl = `${requestApi}?`;
-    for (let item in fetchPrm) {
-        thisUrl = thisUrl + `${item}=${encodeURIComponent(fetchPrm[item])}&`;
-    }
+export const IMGHeader = "http://127.0.0.1:3100/";
 
-    if( thisUrl.length <= requestApi.length + 1) {
-        thisUrl = requestApi;
-    }
-
-    fetch(thisUrl, {credentials: 'include',mode: 'no-cors'})
-        .then((response) => {
-            const { status } = response;
-            if (status >= 200 && status < 300 || status === 304 || status === 302) {
-                response.json().then((val) => {
-                    successFun(val, thisUrl);
-                });
-            } else {
-
-                errorFun && errorFun(`${ERROR_MSG}:${status}，GET:${requestApi}`, thisUrl, status + '');
-            }
-        }).catch((err) => {
-
-        errorFun && errorFun(`${ERROR_MSG}:${err.message}，GET:${requestApi}`, thisUrl, err.message);
-    });
-};
-
-const fetchPost = (requestApi, fetchPrm, successFun, errorFun) => {
-    let prmdata = '';
-    for (let item in fetchPrm) {
-        prmdata = prmdata + `${item}=${encodeURIComponent(fetchPrm[item])}&`;
-    }
-    const url = requestApi + '**' + prmdata;
-    fetch(requestApi, {
-        credentials: 'include',
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: prmdata
-    }).then((response) => {
-        const { status } = response;
-        if (status >= 200 && status < 300 || status === 304) {
-            response.json().then((val) => {
-                successFun(val, url);
-            });
-        } else {
-            errorFun && errorFun(`${ERROR_MSG}:${status}，POST:${requestApi},BODY:${prmdata}`, url, status);
+export const searchToObj = (url) => {
+    /*这个方法将"?letter=2&opp=23"这种string转换为JS对象形式，方便获取URL的参数*/
+    let theRequest = {};
+    if (url.indexOf("?") !== -1) {
+        let str = url.substr(1);
+        let strs = str.split("&");
+        for(let i = 0; i < strs.length; i ++) {
+            theRequest[strs[i].split("=")[0]]= decodeURIComponent(strs[i].split("=")[1]);
         }
-    }).catch((err) => {
-        errorFun && errorFun(`${ERROR_MSG}:${err.message},POST:${requestApi},BODY:${prmdata}`, url, err.message);
-    })
+    }
+    return theRequest;
 };
 
 
@@ -154,4 +115,60 @@ export const tailFormItemLayout = {
         offset: 6,
         },
     },
+};
+
+
+const fetchGet = (requestApi, fetchPrm, successFun, errorFun) => {
+
+    let thisUrl = `${requestApi}?`;
+    for (let item in fetchPrm) {
+        thisUrl = thisUrl + `${item}=${encodeURIComponent(fetchPrm[item])}&`;
+    }
+
+    if( thisUrl.length <= requestApi.length + 1) {
+        thisUrl = requestApi;
+    }
+
+    fetch(thisUrl, {credentials: 'include',mode: 'no-cors'})
+        .then((response) => {
+            const { status } = response;
+            if (status >= 200 && status < 300 || status === 304 || status === 302) {
+                response.json().then((val) => {
+                    successFun(val, thisUrl);
+                });
+            } else {
+
+                errorFun && errorFun(`${ERROR_MSG}:${status}，GET:${requestApi}`, thisUrl, status + '');
+            }
+        }).catch((err) => {
+
+        errorFun && errorFun(`${ERROR_MSG}:${err.message}，GET:${requestApi}`, thisUrl, err.message);
+    });
+};
+
+const fetchPost = (requestApi, fetchPrm, successFun, errorFun) => {
+    let prmdata = '';
+    for (let item in fetchPrm) {
+        prmdata = prmdata + `${item}=${encodeURIComponent(fetchPrm[item])}&`;
+    }
+    const url = requestApi + '**' + prmdata;
+    fetch(requestApi, {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: prmdata
+    }).then((response) => {
+        const { status } = response;
+        if (status >= 200 && status < 300 || status === 304) {
+            response.json().then((val) => {
+                successFun(val, url);
+            });
+        } else {
+            errorFun && errorFun(`${ERROR_MSG}:${status}，POST:${requestApi},BODY:${prmdata}`, url, status);
+        }
+    }).catch((err) => {
+        errorFun && errorFun(`${ERROR_MSG}:${err.message},POST:${requestApi},BODY:${prmdata}`, url, err.message);
+    })
 };

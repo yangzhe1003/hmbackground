@@ -22,11 +22,20 @@ class Mylayout extends React.Component{
             case "/goodList": 
                 this.changeDefaultSelectedKeys(2);
                 break;
+            case "/addGoods":
+                this.changeDefaultSelectedKeys(2);
+                break;
             case "/classify":
                 this.changeDefaultSelectedKeys(3);
                 break;
-            case "/addGoods":
-                this.changeDefaultSelectedKeys(2);
+            case "/banners":
+                this.changeDefaultSelectedKeys(4);
+                break;
+            case "/addBanner":
+                this.changeDefaultSelectedKeys(4);
+                break;
+            case "/orderManage":
+                this.changeDefaultSelectedKeys(5);
                 break;
             default:
 
@@ -53,7 +62,7 @@ class Mylayout extends React.Component{
             <Header className="header">
             <div className="logo">
                 <span className="logo-img">
-                    <img src={require("./heimilogo.png")} alt=""/>
+                    <img src={require("./heimi.png")} alt=""/>
                 </span>
                 <span className="title">
                     <h2>黑米商城后台管理系统</h2>        
@@ -74,9 +83,12 @@ class Mylayout extends React.Component{
                         style={{ height: '100%' }}
                     >
                         <Menu.Item key="1"><Link to={{ pathname: '/' }}><Icon type="home"/>首页</Link></Menu.Item>
-                        <Menu.Item key="2"><Link to={{ pathname: '/goodList' }}><Icon type="appstore-o" />商品列表</Link></Menu.Item>
-                        <Menu.Item key="3"><Link to={{ pathname: '/classify' }}><Icon type="switcher" />商品分类</Link></Menu.Item>
-                
+                        <Menu.Item key="2"><Link to={{ pathname: '/goodList' }}><Icon type="switcher" />商品列表</Link></Menu.Item>
+                        <Menu.Item key="3"><Link to={{ pathname: '/classify' }}><Icon type="appstore-o" />商品分类</Link></Menu.Item>
+                        <Menu.Item key="4"><Link to={{ pathname: '/banners' }}><Icon type="skin" />Banner管理</Link></Menu.Item>
+                        <Menu.Item key="5"><Link to={{ pathname: '/orderManage' }}><Icon type="copy" />订单管理</Link></Menu.Item>
+
+
                     </Menu>
                 </Sider>
                 <Layout style={{ padding: '24px' }}>

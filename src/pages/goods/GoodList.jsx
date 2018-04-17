@@ -83,7 +83,8 @@ class GoodList extends React.Component{
                 key: 'action',
                 render: (text, record) => {
                     return <div>
-                        <Link to={{ pathname: '/addGoods',query: record.id }}><Button type="primary">编辑</Button></Link>&nbsp;&nbsp;
+                        {/*<Link to={{ pathname: '/addGoods', query: { editId :record.id } }}><Button type="primary">编辑</Button></Link>&nbsp;&nbsp;*/}
+                        <Link to={`/addGoods?editId=${ record.id }` }><Button type="primary">编辑</Button></Link>&nbsp;&nbsp;
                         <Popconfirm title={record.status===1?'确认下架':'确认上架'} onConfirm={this.upOrDown.bind(this,record.id,record.status)} okText="Yes" cancelText="No">
                             <Button type="primary">{record.status===1?'下架':'上架'}</Button>    
                         </Popconfirm>

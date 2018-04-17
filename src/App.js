@@ -10,6 +10,9 @@ import GoodList from "./pages/goods/GoodList.jsx";
 import Login from "./pages/login/Login.jsx";
 import Classify from "./pages/goods/Classify.jsx";
 import AddGoods from "./pages/goods/AddGood.jsx";
+import BannerManage from "./pages/banner/BannerManage.jsx";
+import AddBanner from "./pages/banner/AddBanner.jsx";
+import OrderManage from "./pages/order/OrderManage.jsx";
 
 
 
@@ -35,6 +38,9 @@ class App extends React.Component {
                                     <Route path="/goodList" component={ GoodList }/>
                                     <Route path="/classify" component={ Classify }/>
                                     <Route path="/addGoods" component={ AddGoods }/>
+                                    <Route path="/banners" component={ BannerManage }/>
+                                    <Route path="/addBanner" component={ AddBanner }/>
+                                    <Route path="/orderManage" component={ OrderManage }/>
                                     <Redirect from="*" to="/"/>
                                 </Switch>
                             </Layout>

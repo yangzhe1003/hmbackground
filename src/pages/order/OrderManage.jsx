@@ -1,7 +1,7 @@
 import React from 'react';
-import { FetchGet, FetchPost, formItemLayout,tailFormItemLayout, searchToObj, IMGHeader } from "../../common.js";
+import { FetchGet } from "../../common.js";
 import { Table } from 'antd';
-import {getAllOrder} from "../../apis";
+import { getAllOrder } from "../../apis";
 
 class OrderManage extends React.Component{
     constructor(props){
@@ -17,6 +17,7 @@ class OrderManage extends React.Component{
 
     //获取订单列表
     getAllOrder(){
+
         FetchGet(getAllOrder).then(res => {
             let arr = [];
             if(res.data.length){
@@ -74,7 +75,7 @@ class OrderManage extends React.Component{
 
 
                 }
-            }
+            },
         ];
         return <div>
             <h2>订单管理</h2>

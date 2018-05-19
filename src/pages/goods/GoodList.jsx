@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Button, Popconfirm } from 'antd';
+import { Table, Button, Popconfirm, Input } from 'antd';
 import { FetchGet } from '../../common.js';
 import { getAllGoods, upOrDown } from '../../apis.js';
 import { Link } from "react-router-dom";
@@ -8,7 +8,8 @@ class GoodList extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            goodsList: []
+            goodsList: [],
+            keyword: ''
         }
     }
 
@@ -17,9 +18,18 @@ class GoodList extends React.Component{
         this.getAllGoods();
     }
 
+    //getKeyWord
+    getKeyWord(e){
+        this.setState({
+            keyword: e.target.value
+        });
+    }
+
     //获取商品列表
     getAllGoods(){
-        FetchGet(getAllGoods,{}).then(res=>{
+        FetchGet(getAllGoods,{
+            keyword: this.state.keyword
+        }).then(res=>{
             let arr = [];
             if(res.data.length){
                 res.data.map((item,index)=>{
@@ -46,7 +56,7 @@ class GoodList extends React.Component{
     }
 
     render(){
-        const { goodsList } = this.state;
+        const { goodsList, keyword } = this.state;
         const columns = [
             {
                 title: '序号',
@@ -96,7 +106,9 @@ class GoodList extends React.Component{
         return <div>
             <h2>商品列表</h2>
             <div>
-                <Button type="primary">搜索</Button>
+                <Input placeholder="请输入关键字" style={{width: "200px"}} value={keyword} onChange={this.getKeyWord.bind(this)}/>&nbsp;&nbsp;
+                <Button type="primary" onClick={this.getAllGoods.bind(this)}>搜索</Button>&nbsp;&nbsp;
+
                 <Link to={{ pathname: '/addGoods' }}><Button type="primary" style={{float:"right"}}>新增商品</Button></Link>
             </div><br/>
             <div>

@@ -6,7 +6,7 @@ import { message } from 'antd';
 
 const ERROR_MSG = '请求失败';
 
-export const IMGHeader = "http://127.0.0.1:3100/";
+export const IMGHeader = "http://127.0.0.1:3100/img/";
 
 export const searchToObj = (url) => {
     /*这个方法将"?letter=2&opp=23"这种string转换为JS对象形式，方便获取URL的参数*/

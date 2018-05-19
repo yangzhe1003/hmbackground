@@ -12,6 +12,7 @@ class AddGood extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            editId: '',
             classifyList: [],
             small_img: '',
             small_img: '',
@@ -141,10 +142,14 @@ class AddGood extends React.Component{
     }
 
     render(){
-        const { classifyList, small_img, uploadImg1, uploadImg2, uploadImg3, detail1, detail2, detail3 } = this.state;
+        const { editId, classifyList, small_img, uploadImg1, uploadImg2, uploadImg3, detail1, detail2, detail3 } = this.state;
         const { getFieldDecorator } = this.props.form;
         return <div>
-            <h2>新增商品</h2>
+            <h2>
+                {
+                    editId? '编辑商品':'新增商品'
+                }
+            </h2>
 
             <div>
                 <Form onSubmit={this.handleSubmit.bind(this)}>

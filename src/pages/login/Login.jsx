@@ -20,26 +20,24 @@ class Login extends React.Component {
 
 
 
-    goNext() {
-        const formVal = this.props.form.getFieldsValue();
-        console.log(formVal);
-        FetchPost(login, {
-            user_name: formVal.userName,
-            password: formVal.password
-        }).then((res) => {
-            localStorage.setItem('user_name',res.data.user_name);
-            message.success('欢迎回来,'+res.data.user_name);
-            window.location.href = '/';
-            
-        })
+    goNext(e) {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                console.log('Received values of form: ', values);
+                FetchPost(login, {
+                    user_name: values.userName,
+                    password: values.password
+                }).then((res) => {
+                    localStorage.setItem('user_name',res.data.user_name);
+                    message.success('欢迎回来,'+res.data.user_name);
+                    window.location.href = '/';
+                })
+            }
+        });
+
     }
 
-    getUserInfo() {
-        // jrFetchGet(apiLoginInfo).then((ret) => {
-        //     window.location.href = '#/MainView/public/publicData/PublicView';
-        //     message.success('欢迎回来'+","+ret.data.user_name);
-        // })
-    }
 
     render() {
 
@@ -52,17 +50,17 @@ class Login extends React.Component {
 
                 <div className='login-box'>
                     <Card title='后台管理'>
-                        <Form>
+                        <Form onSubmit={this.goNext.bind(this)}>
                             <FormItem>
                                 { getFieldDecorator('userName', {
-                                    rules: [{ required: true, message: 'Please input your username!' }],
+                                    rules: [{ required: true, message: '请输入用户名!' }],
                                 })(
                                     <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Username" />
                                 )}
                             </FormItem>
                             <FormItem>
                                 { getFieldDecorator('password', {
-                                    rules: [{ required: true, message: 'Please input your password!' }],
+                                    rules: [{ required: true, message: '请输入密码!' }],
                                 })(
                                     <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}
                                            type="password"
@@ -74,7 +72,7 @@ class Login extends React.Component {
                                     className='login-btn'
                                     type="primary"
                                     htmlType="submit"
-                                    onClick={ this.goNext.bind(this) }
+                                    // onClick={ this.goNext.bind(this) }
                                     disabled={hasErrors(getFieldsError())}
                                 >
                                     登录
